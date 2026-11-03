@@ -230,7 +230,8 @@ public struct PopupModifier<Item: Equatable, PopupContent: View>: ViewModifier {
 #elseif os(macOS) || os(tvOS)
         ZStack {
             presenterContent
-                .disabled(showContent)
+                // Firehorse: keep the presenter interactive for non-modal (tap-through) popups.
+                .disabled(showContent && !params.allowTapThroughBG)
 
             popupWithBackground()
         }
@@ -242,7 +243,8 @@ public struct PopupModifier<Item: Equatable, PopupContent: View>: ViewModifier {
 #else
         ZStack {
             presenterContent
-                .disabled(showContent)
+                // Firehorse: keep the presenter interactive for non-modal (tap-through) popups.
+                .disabled(showContent && !params.allowTapThroughBG)
 
             popupWithBackground()
         }

@@ -41,15 +41,7 @@ struct PopupBackgroundView: View {
             }
         }
         .contentShape(Rectangle())
-        .allowsHitTesting({
-            #if os(macOS)
-            // presenterContent is disabled on macOS so allowTapThroughBG can't work anyway;
-            // always enable hit testing when tap-outside dismiss is requested
-            closeOnTapOutside || !allowTapThroughBG
-            #else
-            !allowTapThroughBG
-            #endif
-        }())
+        .allowsHitTesting(!allowTapThroughBG)
         .opacity(animatableOpacity)
         .ignoresSafeArea()
         .animation(.linear(duration: 0.2), value: animatableOpacity)
